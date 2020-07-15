@@ -46,13 +46,18 @@ const p = new Player();
 
 Load an audio-buffer.
 
+```javascript
+// buffer contains raw data obtained from `fs.readFile`
+await p.loadBuffer(buffer);
+```
+
 #### .loadBufferFromNotes
 
 Load an audio-buffer from given Array of Tuples.
 
 ```javascript
 //load a A4 in 60BPM
-p.loadBufferFromNotes([[440,1]], 60);
+await p.loadBufferFromNotes([[440,1]], 60);
 ```
 
 #### .play
@@ -60,7 +65,7 @@ p.loadBufferFromNotes([[440,1]], 60);
 Play loaded audio-buffer.
 
 ```javascript
-p.play();
+await p.play();
 ```
 
 #### .saveFile
