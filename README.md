@@ -92,4 +92,21 @@ await p.stop();
 
 ## Examples
 
+Saving a wav-file created from scratch
+
+```javascript
+const {Player} = require('g-sounds');
+
+const NOTES = [[440,1]]; //simple A
+
+const p = new Player();
+(async () => {
+    console.log('Loading Notes from array...');
+    await p.loadBufferFromNotes(NOTES);
+    await p.saveFile('test.wav');
+    console.log('File was written!');
+    process.exit(0);
+})();
+```
+
 More examples [here](https://github.com/gr3p1p3/g-sounds/tree/master/tests)
