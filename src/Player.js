@@ -5,6 +5,11 @@ const playFromBuffer = require('./playFromBuffer');
 const encodeNotes = require('./encodeNotes');
 
 class Player {
+    /**
+     *
+     * @param props
+     * @returns {Player}
+     */
     constructor(props = {}) {
         const self = this;
 
@@ -35,6 +40,13 @@ class Player {
         self.bufferNode = bufferNode;
     }
 
+    /**
+     * Load an audio-buffer
+     * @param {Buffer} audioBuffer
+     * @param reInitNode
+     * @param callback
+     * @returns {Promise}
+     */
     loadBuffer(audioBuffer, reInitNode = false, callback) {
         const self = this;
         self.rawBuffer = audioBuffer;
@@ -58,6 +70,12 @@ class Player {
         }
     }
 
+    /**
+     * Load an audio-buffer from given Array of Tuples. Format => [frequency,duration]
+     * @param {Array} NOTES - The Array of tuples to generate as audio-buffer.
+     * @param {Number} BPM - Beat pro minute
+     * @returns {Promise<boolean | never>}
+     */
     loadBufferFromNotes(NOTES, BPM = 60) {
         const self = this;
         return encodeNotes(NOTES, BPM)
@@ -67,6 +85,11 @@ class Player {
             });
     }
 
+    /**
+     * Play loaded audio-buffer
+     * @param {Number} when
+     * @returns {Promise}
+     */
     play(when = 0) {
         const self = this;
         return new Promise(function (resolve, reject) {
@@ -81,6 +104,11 @@ class Player {
         });
     }
 
+    /**
+     * Save loaded audio-buffer to file path
+     * @param {String} filePath
+     * @returns {Promise}
+     */
     saveFile(filePath) {
         const self = this;
         const {writeFile} = require('fs');
@@ -93,6 +121,11 @@ class Player {
         })
     }
 
+    /**
+     * Stop played sound.
+     * @param {Number} when
+     * @returns {Promise}
+     */
     stop(when = 0) {
         const self = this;
         return new Promise(function (resolve, reject) {
@@ -101,7 +134,6 @@ class Player {
             return resolve(self.bufferNode.onended);
         });
     }
-
 }
 
 
