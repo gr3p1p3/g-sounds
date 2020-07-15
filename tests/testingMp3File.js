@@ -10,11 +10,6 @@ readFile(file, async function (err, fileContents) {
     console.log('Loaded', file, '=>', fileContents);
     await p.loadBuffer(fileContents);
     console.log('loaded...');
-    // setTimeout(async function () {
-    //     console.log('Stopping');
-    //     await p.stop();
-    //     console.log('Stopped');
-    // }, 5000);
 
     console.log('Playing...');
     await p.play();
