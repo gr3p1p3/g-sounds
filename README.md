@@ -4,7 +4,7 @@
 
 gSounds.js is a NodeJS-Library to simplify creation of audio files directly from scratch.
 
-It can be very helpful for quick conversions of audio-files, AI-Tasks, etc.....
+It can be very helpful for CLI-Apps with sounds, quick conversions of audio-files, AI-Tasks, etc.....
 
 ## Quick Start
 
@@ -81,12 +81,14 @@ await p.saveFile('/path/to/save.wav')
 Stop played sound.
 
 ```javascript
-p.stop();
+await p.stop();
 ```
 
 ### utils
 
-...soon
+#### .getFrequenciesMap
+
+#### .getOscillator
 
 ## Examples
 
