@@ -73,7 +73,7 @@ class Player {
 
     /**
      * Load an audio-buffer from given Array of Tuples. Format => [frequency,duration]
-     * @param {Array} NOTES - The Array of tuples to generate as audio-buffer.
+     * @param {Array|Object} NOTES - The Array of tuples to generate as audio-buffer.
      * @param {Number} BPM - Beat pro minute
      * @returns {Promise<boolean | never>}
      */

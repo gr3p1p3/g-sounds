@@ -54,13 +54,21 @@ await p.loadBuffer(buffer);
 ```
 
 
-#### .loadBufferFromNotes( Array:Notes, Number:BPM ) : Promise
+#### .loadBufferFromNotes( Array|Object:Notes, Number:BPM ) : Promise
 
 Load an audio-buffer from given Array of Tuples.
 
 ```javascript
 //load a A4 in 60BPM
 await p.loadBufferFromNotes([[440,1]], 60);
+```
+
+Use an Object instead to generate an audio with multiple channels
+
+```javascript
+const channel = [[440,1]]; //load a A4
+const channel2 = [[261,1]]; //load a C4
+await p.loadBufferFromNotes({channel,channel2});
 ```
 
 #### .play( Number: when ) : Promise
