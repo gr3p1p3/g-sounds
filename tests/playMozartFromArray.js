@@ -11,6 +11,5 @@ const p = new Player();
     await p.loadBufferFromNotes(NOTES, BPM);
     console.log('loaded...playing...');
     await p.play();
-    // console.log('played!')
 })();
 

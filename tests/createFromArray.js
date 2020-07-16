@@ -1,11 +1,10 @@
-const getAllMappedFrequencies = require('../src/getAllMappedFrequencies');
 const Player = require('../src/Player');
+const Note = require('../src/Note');
 
-const freqMap = getAllMappedFrequencies();
-const noteFreq = freqMap.mappedFrequencies;
+const n = new Note();
 
-const [C, G, A, F] = [noteFreq.get('C4'), noteFreq.get('G3'), noteFreq.get('A#4'), noteFreq.get('F4')];
-const PAUSE = 0;
+const [C, G, A, F] = [n.getFrequency('C4'), n.getFrequency('G3'), n.getFrequency('A#4'), n.getFrequency('F4')];
+const PAUSE = n.getFrequency('pause');
 
 const NOTES = [
     [C, 1 / 2],

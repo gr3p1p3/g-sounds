@@ -3,8 +3,8 @@ function getAllMappedFrequencies() {
     const NOTE_LEN = NOTE_STRINGS.length;
     const baseFrequency = 16.35; //C0
 
-    const mappedFrequencies = new Map();
     const mappedToneNames = new Map();
+    const mappedFrequencies = new Map();
     const mappedFullFrequencies = new Map();
     let scala = 0;
 
@@ -16,8 +16,9 @@ function getAllMappedFrequencies() {
         const indexScala = index % NOTE_LEN;
         const noteName = NOTE_STRINGS[indexScala] + scala;
 
-        mappedFrequencies.set(noteName, frequency);
-        mappedToneNames.set(frequency, noteName);
+        mappedToneNames.set(noteName, frequency);
+
+        mappedFrequencies.set(frequency, noteName);
         mappedFullFrequencies.set(parseInt(frequency), noteName);
 
         if (indexScala === NOTE_LEN - 1) {

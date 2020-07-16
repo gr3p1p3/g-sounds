@@ -27,7 +27,7 @@ const p = new Player();
 
 ## Usage
 
-gSounds.js exports two modules, a `Player-Class` & some `utils` 
+gSounds.js exports two modules, `Player` & `Note` 
 
 ```javascript
 const {Player, utils} = require('g-sounds');
@@ -42,16 +42,17 @@ const {Player} = require('g-sounds');
 const p = new Player();
 ```
 
-#### .loadBuffer
+#### .loadBuffer( Buffer: audioBuffer ) : Promise
 
-Load an audio-buffer.
+Load an audio-buffer. Resolve to decoded audio-buffer.
 
 ```javascript
 // buffer contains raw data obtained from `fs.readFile`
 await p.loadBuffer(buffer);
 ```
 
-#### .loadBufferFromNotes
+
+#### .loadBufferFromNotes( Array:Notes, Number:BPM ) : Promise
 
 Load an audio-buffer from given Array of Tuples.
 
@@ -60,7 +61,7 @@ Load an audio-buffer from given Array of Tuples.
 await p.loadBufferFromNotes([[440,1]], 60);
 ```
 
-#### .play
+#### .play( Number: when ) : Promise
 
 Play loaded audio-buffer.
 
@@ -68,7 +69,7 @@ Play loaded audio-buffer.
 await p.play();
 ```
 
-#### .saveFile
+#### .saveFile( String: filePath ) : Promise
 
 Save loaded audio-buffer to file path. (WAV-Files)
 
@@ -76,7 +77,7 @@ Save loaded audio-buffer to file path. (WAV-Files)
 await p.saveFile('/path/to/save.wav')
 ```
 
-#### .stop
+#### .stop( Number: when ) : Promise
 
 Stop played sound.
 
@@ -84,11 +85,36 @@ Stop played sound.
 await p.stop();
 ```
 
-### utils
+### Note
 
-#### .getFrequenciesMap
+The Note-Instance is helpful to get some frequency
 
-#### .getOscillator
+```javascript
+const {Note} = require('g-sounds');
+const n = new Note();
+```
+
+#### .getFrequency( String: note ) : Number|undefined
+
+Get the frequency-value of a given note.
+
+```javascript
+n.getFrequency('C4'); //261.6
+```
+
+#### .getNote( Number: frequency) : String|undefined
+
+Get the Note name of a given frequency.
+
+```javascript
+n.getNote(261.61); // C4
+```
+
+or
+
+```javascript
+n.getNote(261); // C4
+```
 
 ## Examples
 
@@ -107,6 +133,32 @@ const p = new Player();
     console.log('File was written!');
     process.exit(0);
 })();
+```
+
+```javascript
+const {Note}=require('g-sounds');
+
+//first two bars of Mozart's "Kleine Nachtmusik"
+const NOTES = [[783.99, 0.5], [0, 0.25], [587.33, 0.25], [783.99, 0.5], [0, 0.25], [587.33, 0.25], [783.99, 0.25], [587.33, 0.25], [783.99, 0.25], [987.77, 0.25], [1174.7, 0.25]];
+
+const n = new Note();
+
+for (const [frequency, duration] of NOTES) {
+    const noteName = n.getNote(frequency);
+    console.log(frequency, '=>', noteName);
+}
+
+// 783.99 '=>' 'G5'
+// 0 '=>' 'pause'
+// 587.33 '=>' 'D5'
+// 783.99 '=>' 'G5'
+// 0 '=>' 'pause'
+// 587.33 '=>' 'D5'
+// 783.99 '=>' 'G5'
+// 587.33 '=>' 'D5'
+// 783.99 '=>' 'G5'
+// 987.77 '=>' 'B5'
+// 1174.7 '=>' 'D6'
 ```
 
 More examples [here](https://github.com/gr3p1p3/g-sounds/tree/master/tests)

@@ -1,7 +1,6 @@
 const AudioContext = require('web-audio-api').AudioContext;
 const Speaker = require('speaker');
 
-const playFromBuffer = require('./playFromBuffer');
 const encodeNotes = require('./encodeNotes');
 
 class Player {
@@ -43,13 +42,15 @@ class Player {
     /**
      * Load an audio-buffer
      * @param {Buffer} audioBuffer
-     * @param reInitNode
-     * @param callback
+     * @param {Boolean} reInitNode
+     * @param {Function} callback
      * @returns {Promise}
      */
-    loadBuffer(audioBuffer, reInitNode = false, callback) {
+    loadBuffer(audioBuffer, reInitNode = false, callback = undefined) {
         const self = this;
+
         self.rawBuffer = audioBuffer;
+
         if (reInitNode) {
             self.reInitBufferNode();
         }
@@ -58,14 +59,14 @@ class Player {
             return new Promise(function (resolve, reject) {
                 self.context.decodeAudioData(audioBuffer, function (decodedAudioBuffer) {
                     self.bufferNode.buffer = decodedAudioBuffer;
-                    resolve(true);
+                    resolve(decodedAudioBuffer);
                 });
             });
         }
         else {
             self.context.decodeAudioData(audioBuffer, function (decodedAudioBuffer) {
                 self.bufferNode.buffer = decodedAudioBuffer;
-                callback(null, true);
+                callback(null, decodedAudioBuffer);
             });
         }
     }
