@@ -1,4 +1,12 @@
-function getOscillator(samplingRate = 44100, freq = 440, samples = 44100, amplitude = 100) {
+/**
+ * Get Wave-Data.
+ * @param {Number} freq
+ * @param {Number} samplingRate
+ * @param {Number} samples
+ * @param {Number} amplitude
+ * @returns {Array} - The calculated values of wave.
+ */
+function getOscillator(freq = 440, samplingRate = 44100, samples = 44100, amplitude = 100) {
     const wave = [];
 
     for (let i = 0; i < samples; i++) {

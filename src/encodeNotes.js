@@ -4,7 +4,7 @@ const getOscillator = require('./getOscillator');
 async function encodeNotes(notes, BPM = 60, sampleRate = 44100) {
     let encoded = [];
     for (const [freq, duration] of notes) {
-        const rawData = getOscillator(undefined, freq, (((60 / BPM) * sampleRate) * duration));
+        const rawData = getOscillator(freq, undefined, (((60 / BPM) * sampleRate) * duration));
         encoded = [...encoded, ...rawData]; //concatenating rawData
     }
 

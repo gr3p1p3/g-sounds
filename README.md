@@ -29,10 +29,10 @@ const p = new Player();
 
 ## Usage
 
-gSounds.js exports two modules, `Player` & `Note` 
+gSounds.js exports two modules `Player` & `Note` 
 
 ```javascript
-const {Player, utils} = require('g-sounds');
+const {Player, Note} = require('g-sounds');
 ```
 
 ### Player
@@ -116,6 +116,14 @@ or
 
 ```javascript
 n.getNote(261); // C4
+```
+
+#### .getOscillator( Number:frequency, Number:samplingRate, Number:samples, Number:amplitude ) : Array
+
+Get Wave-Data of a given frequency.
+
+```javascript
+n.getOscillator(261.6); // the sin-wave values for C4
 ```
 
 ## Examples
