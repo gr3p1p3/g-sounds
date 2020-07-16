@@ -1,10 +1,12 @@
 # gSounds.js
 
-#### !!BETA!!
+#### **!!BETA!!**
 
 gSounds.js is a NodeJS-Library to simplify creation of audio files directly from scratch.
 
-It can be very helpful for CLI-Apps with sounds, quick conversions of audio-files, AI-Tasks, etc.....
+
+It can be very helpful for CLI-Apps with sounds, generate Sound automatically, quick conversions of audio-files, AI-Tasks, etc...
+
 
 ## Quick Start
 
@@ -135,8 +137,10 @@ const p = new Player();
 })();
 ```
 
+Print the notes of "Kleine Nachtmusik" from frequencies values.
+
 ```javascript
-const {Note}=require('g-sounds');
+const {Note}= require('g-sounds');
 
 //first two bars of Mozart's "Kleine Nachtmusik"
 const NOTES = [[783.99, 0.5], [0, 0.25], [587.33, 0.25], [783.99, 0.5], [0, 0.25], [587.33, 0.25], [783.99, 0.25], [587.33, 0.25], [783.99, 0.25], [987.77, 0.25], [1174.7, 0.25]];
