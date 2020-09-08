@@ -1,6 +1,6 @@
 const fs = require('fs');
 const {readFile} = fs;
-const Player = require('../src/Player');
+const Player = require('../src/classes/Player');
 
 
 const p = new Player();

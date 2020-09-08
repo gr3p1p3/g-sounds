@@ -1,7 +1,9 @@
 module.exports = {
-    Player: require('./src/Player'),
+    Player: require('./src/classes/Player'),
+    Oscillator: require('./src/classes/Oscillator'),
+    Note: require('./src/classes/Note'),
     utils: {
-        getOscillator: require('./src/getOscillator'),
-        getFrequenciesMap: require('./src/getAllMappedFrequencies')
+        getOscillator: require('./src/utils/getOscillator'),
+        getFrequenciesMap: require('./src/utils/getAllMappedFrequencies')
     }
 };

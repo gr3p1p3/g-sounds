@@ -1,5 +1,5 @@
-const getAllMappedFrequencies = require('./getAllMappedFrequencies');
-const getOscillator = require('./getOscillator');
+const getAllMappedFrequencies = require('../utils/getAllMappedFrequencies');
+const getOscillator = require('../utils/getOscillator');
 
 class Note {
     constructor() {

@@ -1,5 +1,5 @@
-const Player = require('../src/Player');
-const Note = require('../src/Note');
+const Player = require('../src/classes/Player');
+const Note = require('../src/classes/Note');
 
 const n = new Note();
 

@@ -1,23 +1,27 @@
 const WavEncoder = require('wav-encoder');
-const getOscillator = require('./getOscillator');
+const Oscillator = require('../classes/Oscillator');
 
 async function encodeNotes(notes, BPM = 60, sampleRate = 44100) {
     function getRawData(frequencies) {
-        let encoded = [];
+        const sampleLength = ((60 / BPM) * sampleRate);
+        let encoded = new Oscillator(sampleRate);
+
         for (const [freq, duration] of frequencies) {
-            const rawData = getOscillator(freq, undefined, (((60 / BPM) * sampleRate) * duration));
-            encoded = [...encoded, ...rawData]; //concatenating rawData
+            const thisSampleLength = sampleLength * duration;
+            const rawData = new Oscillator(thisSampleLength).create(freq);
+
+            encoded = encoded.concat(rawData); //concatenating Oscillator-rawData
         }
-        return encoded;
+        return encoded.rawData();
     }
 
     let channelsData = [];
     if (Array.isArray(notes)) {
-        channelsData.push(new Float32Array(getRawData(notes)));
+        channelsData.push(getRawData(notes));
     }
     else {
         for (const channelData of Object.values(notes)) {
-            channelsData.push(new Float32Array(getRawData(channelData)))
+            channelsData.push(getRawData(channelData))
         }
     }
 
