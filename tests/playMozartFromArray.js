@@ -12,9 +12,9 @@ const p = new Player();
     console.log('loaded...playing...');
     await p.play();
 
-    setTimeout(function () {
+    setTimeout(async function () {
         console.log('played!');
-        process.exit(0);
+        await p.stop();
     }, 3300);
 })();
 

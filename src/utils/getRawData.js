@@ -1,5 +1,12 @@
 const Oscillator = require('../classes/Oscillator');
 
+/**
+ *
+ * @param frequencies
+ * @param BPM
+ * @param sampleRate
+ * @returns {Float32Array}
+ */
 function getRawData(frequencies, BPM, sampleRate) {
     const sampleLength = ((60 / BPM) * sampleRate);
     let encoded = new Oscillator(sampleRate);

@@ -39,7 +39,7 @@ class Note {
      * @param {Number} samplingRate
      * @param {Number} samples
      * @param {Number} amplitude
-     * @returns {Array} - The calculated values of wave.
+     * @returns {Oscillator} - The calculated values of wave.
      */
     getOscillator(freq = 440, samplingRate = 44100, samples = 44100, amplitude = 100) {
         return getOscillator(freq, samplingRate, samples, amplitude)

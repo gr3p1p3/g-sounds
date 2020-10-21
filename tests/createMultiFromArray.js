@@ -37,8 +37,8 @@ const p = new Player();
     console.log('loaded...playing...');
     await p.play();
 
-    setTimeout(function () {
-        process.exit(0);
+    setTimeout(async function () {
+        await p.stop();
     }, 3200);
 })();
 

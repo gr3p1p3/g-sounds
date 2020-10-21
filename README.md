@@ -29,10 +29,10 @@ const p = new Player();
 
 ## Usage
 
-gSounds.js exports two modules `Player` & `Note` 
+gSounds.js expose following modules: `Player`,`Note`,`Oscillator`. 
 
 ```javascript
-const {Player, Note} = require('g-sounds');
+const {Player, Note, Oscillator} = require('g-sounds');
 ```
 
 ### Player
@@ -54,7 +54,7 @@ await p.loadBuffer(buffer);
 ```
 
 
-#### .loadBufferFromNotes( Array|Object:Notes, Number:BPM ) : Promise
+#### .loadBufferFromNotes( Array|Object:Notes, Int:BPM ) : Promise
 
 Load an audio-buffer from given Array of Tuples.
 
@@ -71,9 +71,9 @@ const channel2 = [[261,1]]; //load a C4
 await p.loadBufferFromNotes({channel,channel2});
 ```
 
-#### .play( Number: when ) : Promise
+#### .play() : Promise
 
-Play loaded audio-buffer.
+Play loaded audio-buffer. Resolves to `Player`.
 
 ```javascript
 await p.play();
@@ -87,13 +87,38 @@ Save loaded audio-buffer to file path. (WAV-Files)
 await p.saveFile('/path/to/save.wav')
 ```
 
-#### .stop( Number: when ) : Promise
+#### .stop() : Promise
 
-Stop played sound.
+Stop played sound. Resolves to `Player`.
 
 ```javascript
 await p.stop();
 ```
+
+### Oscillator
+
+The Oscillator is a class to handle easier with oscillator-waves.
+
+#### constructor( Int:samples ): Oscillator
+
+```javascript
+const {Oscillator} = require('g-sounds');
+const o = new Oscillator();
+```
+
+`samples` as default `44100`.
+
+#### create( Float:frequency, Int:samplingRate, Int:amplitude ) : Oscillator
+
+Get Oscillator containing Wave-Data of a given frequency.
+
+#### add( Oscillator:otherOscillator ) : Oscillator
+
+Add values of Oscillator to another one. Creating a new one.
+
+#### rawData() : Float32Array
+
+Get raw data of created Wave to send directly to any wav-encoder.
 
 ### Note
 
@@ -112,7 +137,7 @@ Get the frequency-value of a given note.
 n.getFrequency('C4'); //261.6
 ```
 
-#### .getNote( Number: frequency) : String|undefined
+#### .getNote( Float|Int: frequency) : String|undefined
 
 Get the Note name of a given frequency.
 
@@ -126,9 +151,9 @@ or
 n.getNote(261); // C4
 ```
 
-#### .getOscillator( Number:frequency, Number:samplingRate, Number:samples, Number:amplitude ) : Array
+#### .getOscillator( Float:frequency, Number:samplingRate, Int:samples, Int:amplitude ) : Oscillator
 
-Get Wave-Data of a given frequency.
+Get Oscillator containing Wave-Data of a given frequency.
 
 ```javascript
 n.getOscillator(261.6); // the sin-wave values for C4

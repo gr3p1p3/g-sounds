@@ -50,6 +50,10 @@ class Oscillator extends Array {
         return newOscillator;
     }
 
+    /**
+     * Return raw values of audio-buffer
+     * @returns {Float32Array}
+     */
     rawData() {
         return new Float32Array(this);
     }

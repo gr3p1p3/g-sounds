@@ -44,13 +44,12 @@ class Player {
      * @param {Buffer} audioBuffer
      * @param {Boolean} reInitNode
      * @param {Function} callback
-     * @returns {Promise}
+     * @returns {Promise<AudioBuffer>}
      */
     loadBuffer(audioBuffer, reInitNode = false, callback = undefined) {
         const self = this;
 
         self.rawBuffer = audioBuffer;
-
         if (reInitNode) {
             self.reInitBufferNode();
         }
@@ -70,32 +69,33 @@ class Player {
      * Load an audio-buffer from given Array of Tuples. Format => [frequency,duration]
      * @param {Array|Object} NOTES - The Array of tuples to generate as audio-buffer.
      * @param {Number} BPM - Beat pro minute
-     * @returns {Promise<boolean | never>}
+     * @returns {Promise<AudioBuffer>}
      */
     loadBufferFromNotes(NOTES, BPM = 60) {
         const self = this;
         return encodeNotes(NOTES, BPM)
             .then(async function (singleAudioBuffer) {
                 await self.loadBuffer((singleAudioBuffer));
-                return true;
+                return singleAudioBuffer;
             });
     }
 
     /**
      * Play loaded audio-buffer
-     * @param {Number} when
-     * @returns {Promise}
+     * @returns {Promise<Player>}
      */
-    play(when = 0) {
+    play() {
         const self = this;
+
+        // console.log(self.context.currentTime, self.context._frame);
         return new Promise(function (resolve, reject) {
-            self.bufferNode.start(when);
+            self.bufferNode.start(0);
             self.isPlaying = true;
 
             self.bufferNode.onended = function () {
                 self.bufferNode.stop(0);
                 self.isPlaying = false;
-                resolve(true);
+                resolve(self);
             };
         });
     }
@@ -119,16 +119,25 @@ class Player {
 
     /**
      * Stop played sound.
-     * @param {Number} when
      * @returns {Promise}
      */
-    stop(when = 0) {
+    stop() {
         const self = this;
         return new Promise(function (resolve, reject) {
-            // self.bufferNode.stop(0);
-            // self.isPlaying = false;
-            return resolve(self.bufferNode.onended);
+            self.context.outStream.end(function () {
+                resolve(self);
+            });
         });
+    }
+
+    /**
+     * Stop and kill this Instance.
+     * @returns {Promise}
+     */
+    async exit() {
+        const self = this;
+        await self.stop();
+        delete this; //disposing class
     }
 }
 
