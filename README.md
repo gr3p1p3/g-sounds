@@ -104,6 +104,7 @@ The Oscillator is a class to handle easier with oscillator-waves.
 ```javascript
 const {Oscillator} = require('g-sounds');
 const o = new Oscillator();
+const o1 = new Oscillator();
 ```
 
 `samples` as default `44100`.
@@ -112,13 +113,26 @@ const o = new Oscillator();
 
 Get Oscillator containing Wave-Data of a given frequency.
 
+```javascript
+o.create(261.6); //C4
+o1.create(440); //A4
+```
+
 #### add( Oscillator:otherOscillator ) : Oscillator
 
 Add values of Oscillator to another one. Creating a new one.
 
+```javascript
+const finalOsc = o.add(o1);
+```
+
 #### rawData() : Float32Array
 
 Get raw data of created Wave to send directly to any wav-encoder.
+
+```javascript
+const raw = finalOsc.rawData();
+```
 
 ### Note
 
