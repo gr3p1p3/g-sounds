@@ -1,4 +1,6 @@
 const AudioContext = require('web-audio-api').AudioContext;
+const WavDecoder = require('../classes/Wav').decode;
+
 const Speaker = require('speaker/index');
 
 const encodeNotes = require('../utils/encodeNotes');
@@ -54,7 +56,8 @@ class Player {
             self.reInitBufferNode();
         }
 
-        return new Promise(function (resolve, reject) {
+        return new Promise(async function (resolve, reject) {
+            // const decodedAudioBuffer = await WavDecoder(audioBuffer);
             self.context.decodeAudioData(audioBuffer, function (decodedAudioBuffer) {
                 self.bufferNode.buffer = decodedAudioBuffer;
                 if (callback && typeof callback === 'function') {
